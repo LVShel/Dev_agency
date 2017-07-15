@@ -1,7 +1,6 @@
 package app;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,24 +9,46 @@ import java.util.stream.Collectors;
  */
 public class Project {
     public String name;
-    public int seniors;
-    public int middles;
-    public int juniors;
+    public int seniorsNeed;
+    public int middlesNeed;
+    public int juniorsNeed;
 
     List<Rower> rowersOnProject = new ArrayList<>();
 
-    public Project(String name, int seniors, int middles, int juniors) {
+    public Project(String name, int seniorsNeed, int middlesNeed, int juniorsNeed) {
         this.name = name;
-        this.seniors = seniors;
-        this.middles = middles;
-        this.juniors = juniors;
+        this.seniorsNeed = seniorsNeed;
+        this.middlesNeed = middlesNeed;
+        this.juniorsNeed = juniorsNeed;
     }
 
+    public void assignRowersToProject(Bench bench) throws NotEnoughRowersException {
+        long countsen = bench.getRowers().stream().filter(r->Rank.SENIOR.equals(r.getPosition())).count();
+        long countMid = bench.getRowers().stream().filter(r->Rank.MIDDLE.equals(r.getPosition())).count();
+        long countJun = bench.getRowers().stream().filter(r->Rank.JUNIOR.equals(r.getPosition())).count();
 
-    public void assignRowersToProject(Bench bench) {
-        List<Rower> seniorsList = bench.getRowers().stream().filter(r->Rank.SENIOR.equals(r.getPosition())).limit(getSeniors()).collect(Collectors.toList());
-        List<Rower> middlesList = bench.getRowers().stream().filter(r->Rank.MIDDLE.equals(r.getPosition())).limit(getMiddles()).collect(Collectors.toList());
-        List<Rower> juniorsList = bench.getRowers().stream().filter(r->Rank.JUNIOR.equals(r.getPosition())).limit(getJuniors()).collect(Collectors.toList());
+        long seniorsLimit = 0;
+        long middlesLimit = 0;
+        long juniorsLimit = 0;
+
+        if(countsen < getSeniorsNeed()){
+            throw new NotEnoughRowersException("NOT ENOUGH SENIORS ON THE BENCH!!! " + "(" + countsen + " LEFT" + ")");
+        }
+        else if(countMid < getMiddlesNeed()){
+            throw new NotEnoughRowersException("NOT ENOUGH MIDDLES ON THE BENCH!!! " + "(" + countMid + " LEFT" + ")");
+        }
+        else if(countJun < getJuniorsNeed()){
+            throw new NotEnoughRowersException("NOT ENOUGH JUNIORS ON THE BENCH!!! " + "(" + countJun + " LEFT" + ")");
+        }
+        else{
+            seniorsLimit = getSeniorsNeed();
+            middlesLimit = getMiddlesNeed();
+            juniorsLimit = getJuniorsNeed();
+        }
+
+        List<Rower> seniorsList = bench.getRowers().stream().filter(r->Rank.SENIOR.equals(r.getPosition())).limit(seniorsLimit).collect(Collectors.toList());
+        List<Rower> middlesList = bench.getRowers().stream().filter(r->Rank.MIDDLE.equals(r.getPosition())).limit(middlesLimit).collect(Collectors.toList());
+        List<Rower> juniorsList = bench.getRowers().stream().filter(r->Rank.JUNIOR.equals(r.getPosition())).limit(juniorsLimit).collect(Collectors.toList());
 
         rowersOnProject.addAll(seniorsList);
         rowersOnProject.addAll(middlesList);
@@ -39,17 +60,15 @@ public class Project {
 
     public void printRowersOnProject() {
         System.out.println("ON PROJECT: " + "'" + getName() + "'" + " are " + rowersOnProject.size() + " rowers: ");
-        for (int i = 0; i < rowersOnProject.size(); i++) {
-                System.out.println(rowersOnProject.get(i).getPosition()+" "+ "Experience: " + rowersOnProject.get(i).getExperience() + "  "
-                        + "Qualification: " + rowersOnProject.get(i).getQualification());
-
+        for(Rower rower : rowersOnProject){
+            System.out.println(rower.getPosition()+" "+ "Experience: " + rower.getExperience() + "  "
+                       + "Qualification: " + rower.getQualification());
         }
     }
 
     public List<Rower> getRowersOnProject() {
         return rowersOnProject;
     }
-
 
     public String getName() {
         return name;
@@ -59,27 +78,27 @@ public class Project {
         this.name = name;
     }
 
-    public int getSeniors() {
-        return seniors;
+    public int getSeniorsNeed() {
+        return seniorsNeed;
     }
 
-    public void setSeniors(int seniors) {
-        this.seniors = seniors;
+    public void setSeniorsNeed(int seniorsNeed) {
+        this.seniorsNeed = seniorsNeed;
     }
 
-    public int getMiddles() {
-        return middles;
+    public int getMiddlesNeed() {
+        return middlesNeed;
     }
 
-    public void setMiddles(int middles) {
-        this.middles = middles;
+    public void setMiddlesNeed(int middlesNeed) {
+        this.middlesNeed = middlesNeed;
     }
 
-    public int getJuniors() {
-        return juniors;
+    public int getJuniorsNeed() {
+        return juniorsNeed;
     }
 
-    public void setJuniors(int juniorss) {
-        this.juniors = juniors;
+    public void setJuniorsNeed(int juniorsNeed) {
+        this.juniorsNeed = juniorsNeed;
     }
 }

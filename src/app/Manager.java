@@ -15,11 +15,16 @@ public class Manager {
     public void initProject(){
         projects.add(new Project("AVAL BANK", 1, 2, 1));
         projects.add(new Project("PRIVAT BANK", 2, 2, 0));
+        projects.add(new Project("ABC ", 6, 1, 5));
     }
 
-    public void startProjects(){
+    public void startProjects() {
         for(Project project : projects){
-            project.assignRowersToProject(bench);
+            try {
+                project.assignRowersToProject(bench);
+            } catch (NotEnoughRowersException e) {
+                e.printStackTrace();
+            }
             project.printRowersOnProject();
         }
     }
@@ -63,8 +68,8 @@ public class Manager {
 
     public void printAllBench() {
         System.out.println("ROWERS LEFT ON THE BENCH: ");
-        for (int i = 0; i < bench.getRowers().size(); i++) {
-            System.out.println(bench.getRowers().get(i).getPosition() + ": " + "Experience: " +   bench.getRowers().get(i).getExperience() + "  " + "Qualification: "+ bench.getRowers().get(i).getQualification());
+        for(Rower rower: bench.getRowers()){
+        System.out.println(rower.getPosition() + ": " + "Experience: " +   rower.getExperience() + "  " + "Qualification: " + rower.getQualification());
         }
     }
 
