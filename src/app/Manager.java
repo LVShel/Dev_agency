@@ -10,17 +10,17 @@ import java.util.List;
  */
 public class Manager {
     Bench bench = new Bench();
-    ProjectList currentProjects = new ProjectList();
+    List<Project> projects = new ArrayList<>();
 
     public void initProject(){
-        currentProjects.addProject("ABC", 2,1,1);
-        currentProjects.addProject("BCE", 3,1,0);
+        projects.add(new Project("AVAL BANK", 1, 2, 1));
+        projects.add(new Project("PRIVAT BANK", 2, 2, 0));
     }
 
     public void startProjects(){
-        for(int i = 0; i<currentProjects.projects.size();i++){
-            currentProjects.projects.get(i).assignRowersToProject(bench);
-            currentProjects.projects.get(i).printRowersOnProject();
+        for(Project project : projects){
+            project.assignRowersToProject(bench);
+            project.printRowersOnProject();
         }
     }
 

@@ -25,9 +25,9 @@ public class Project {
 
 
     public void assignRowersToProject(Bench bench) {
-        List<Rower> seniorsList = bench.getRowers().stream().filter(r->"Senior".equals(r.getPosition())).limit(getSeniors()).collect(Collectors.toList());
-        List<Rower> middlesList = bench.getRowers().stream().filter(r->"Middle".equals(r.getPosition())).limit(getMiddles()).collect(Collectors.toList());
-        List<Rower> juniorsList = bench.getRowers().stream().filter(r->"Junior".equals(r.getPosition())).limit(getJuniors()).collect(Collectors.toList());
+        List<Rower> seniorsList = bench.getRowers().stream().filter(r->Rank.SENIOR.equals(r.getPosition())).limit(getSeniors()).collect(Collectors.toList());
+        List<Rower> middlesList = bench.getRowers().stream().filter(r->Rank.MIDDLE.equals(r.getPosition())).limit(getMiddles()).collect(Collectors.toList());
+        List<Rower> juniorsList = bench.getRowers().stream().filter(r->Rank.JUNIOR.equals(r.getPosition())).limit(getJuniors()).collect(Collectors.toList());
 
         rowersOnProject.addAll(seniorsList);
         rowersOnProject.addAll(middlesList);

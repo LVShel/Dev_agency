@@ -4,16 +4,16 @@ package app;
  * Created by Home on 08.07.2017.
  */
 public class Rower {
-    private String position;
+    private Rank position;
     private double experience;
     private int qualification;
 
     public Rower(double experience, int qualification) {
         this.experience = experience;
         this.qualification = qualification;
-        if(experience >= 3.0)setPosition("Senior");
-        else if(experience >=2.0 && experience<3.0)setPosition("Middle");
-        else if(experience < 2.0)setPosition("Junior");
+        if(experience >= 3.0)setPosition(Rank.SENIOR);
+        else if(experience >=2.0 && experience<3.0)setPosition(Rank.MIDDLE);
+        else if(experience < 2.0)setPosition(Rank.JUNIOR);
     }
 
     public double getExperience() {
@@ -24,11 +24,12 @@ public class Rower {
         return qualification;
     }
 
-    public String getPosition() {
+
+    public Rank getPosition() {
         return position;
     }
 
-    private void setPosition(String position) {
+    public void setPosition(Rank position) {
         this.position = position;
     }
 }
