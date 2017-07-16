@@ -37,6 +37,6 @@ public class Rower implements Employee{
 
     @Override
     public String getID() {
-        return getPosition().toString().substring(0,3).concat(String.valueOf(idNumber));
+        return getPosition().toString().substring(0,3).concat("-").concat(String.valueOf(idNumber));
     }
 }

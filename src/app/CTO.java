@@ -9,8 +9,6 @@ public class CTO {
         Manager manager = new Manager("Leo");
         manager.initRowers();
         manager.sortBench();
-        manager.initProjects();
-        manager.startProjects();
         manager.printAllBench();
     }
 }
