@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Created by Home on 08.07.2017.
+ * Created by Home on 08.07.2017. // add more cpecific documentation
  */
 public class Bench {
     List<Rower> rowers = new ArrayList<>();
