@@ -22,7 +22,7 @@ public class Project {
         this.juniorsNeed = juniorsNeed;
     }
 
-    public void assignRowersToProject(Bench bench) throws NotEnoughRowersException {
+    public void assignRowers(Bench bench) throws NotEnoughRowersException {
         long countsen = bench.getRowers().stream().filter(r->Rank.SENIOR.equals(r.getPosition())).count();
         long countMid = bench.getRowers().stream().filter(r->Rank.MIDDLE.equals(r.getPosition())).count();
         long countJun = bench.getRowers().stream().filter(r->Rank.JUNIOR.equals(r.getPosition())).count();

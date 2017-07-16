@@ -10,12 +10,10 @@ public class Rower implements Employee{
     private int idNumber;
     private static int rowersNumber = 0;
 
-    public Rower(double experience, int qualification) {
+    public Rower(Rank position, double experience, int qualification) {
+        this.position = position;
         this.experience = experience;
         this.qualification = qualification;
-        if(experience >= 3.0)setPosition(Rank.SENIOR);
-        else if(experience >=2.0 && experience<3.0)setPosition(Rank.MIDDLE);
-        else if(experience < 2.0)setPosition(Rank.JUNIOR);
         idNumber = ++rowersNumber;
     }
 

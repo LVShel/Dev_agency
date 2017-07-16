@@ -1,7 +1,9 @@
 package app;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,16 +23,22 @@ public class Manager implements Employee{
         idNumber = ++managersNumber;
     }
 
-    public void initProject(){
-        projects.add(new Project("AVAL BANK", 1, 2, 1));
-        projects.add(new Project("PRIVAT BANK", 2, 2, 0));
-        projects.add(new Project("ABC ", 6, 1, 5));
+    public void initProjects(){
+        String line = "";
+        try(BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\Home\\IdeaProjects\\GALLEY\\src\\app\\ListOfProjects"))) {
+            while ((line = in.readLine()) != null) {
+                String parts[] = line.split("\\s");
+                projects.add(new Project(parts[1], Integer.valueOf(parts[3]), Integer.valueOf(parts[5]), Integer.valueOf(parts[7])));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void startProjects() {
         for(Project project : projects){
             try {
-                project.assignRowersToProject(bench);
+                project.assignRowers(bench);
             } catch (NotEnoughRowersException e) {
                 e.printStackTrace();
             }
@@ -39,37 +47,16 @@ public class Manager implements Employee{
         }
     }
 
-    public void initRower(){
-        bench.addRower(3.0, 56);
-        bench.addRower(2.5, 65);
-        bench.addRower(2.1, 55);
-        bench.addRower(3.5, 10);
-        bench.addRower(4.5, 80);
-        bench.addRower(1.8, 50);
-        bench.addRower(2.3, 77);
-        bench.addRower(5.5, 99);
-        bench.addRower(1.1, 37);
-        bench.addRower(5.1, 88);
-        bench.addRower(2.7, 88);
-        bench.addRower(2.4, 88);
-        bench.addRower(4.1, 88);
-        bench.addRower(6.1, 97);
-        bench.addRower(8.1, 99);
-        bench.addRower(2.1, 71);
-        bench.addRower(2.1, 64);
-        bench.addRower(2.1, 61);
-        bench.addRower(2.1, 74);
-        bench.addRower(2.6, 67);
-        bench.addRower(1.1, 10);
-        bench.addRower(1.1, 11);
-        bench.addRower(1.1, 12);
-        bench.addRower(1.1, 13);
-        bench.addRower(1.1, 14);
-        bench.addRower(1.1, 15);
-        bench.addRower(1.1, 17);
-        bench.addRower(1.1, 20);
-        bench.addRower(1.1, 22);
-        bench.addRower(1.1, 24);
+    public void initRowers(){
+        String line = "";
+        try(BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\Home\\IdeaProjects\\GALLEY\\src\\app\\ListOfRowers"))) {
+            while ((line = in.readLine()) != null) {
+                String parts[] = line.split("\\s");
+                bench.addRower(Rank.valueOf(parts[0].toUpperCase()), Double.valueOf(parts[1]), Integer.valueOf(parts[2]));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void sortBench(){
@@ -77,7 +64,7 @@ public class Manager implements Employee{
     }
 
     public void printAllBench() {
-        System.out.println("ROWERS LEFT ON THE BENCH: ");
+        System.out.println("ROWERS LEFT ON THE BENCH: " + bench.getRowers().size());
         for(Rower rower: bench.getRowers()){
         System.out.println(rower.getPosition() + ": " + "Experience: " +   rower.getExperience() + "  "
                 + "Qualification: " + rower.getQualification() + " ID: " + rower.getID());

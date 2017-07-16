@@ -11,8 +11,8 @@ import java.util.List;
 public class Bench {
     List<Rower> rowers = new ArrayList<>();
 
-    public void addRower(double experience, int qualification) {
-      rowers.add(new Rower(experience, qualification));
+    public void addRower(Rank position, double experience, int qualification) {
+      rowers.add(new Rower(position, experience, qualification));
     }
 
 
