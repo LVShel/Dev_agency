@@ -21,7 +21,7 @@ public class Manager {
     public void startProjects() {
         for(Project project : projects){
             try {
-                project.assignRowersToProject(bench);
+                project.assignRowersToProject(bench); // better to rename to 'assignRowers(...)'
             } catch (NotEnoughRowersException e) {
                 e.printStackTrace();
             }
@@ -30,7 +30,7 @@ public class Manager {
     }
 
     public void initRower(){
-        bench.addRower(3.0, 56);
+        bench.addRower(3.0, 56); // I would initialize bench and projects from file
         bench.addRower(2.5, 65);
         bench.addRower(2.1, 55);
         bench.addRower(3.5, 10);
