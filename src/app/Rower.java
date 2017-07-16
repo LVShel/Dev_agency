@@ -8,7 +8,7 @@ public class Rower {
     private double experience;
     private int qualification;
 
-    public Rower(double experience, int qualification) {
+    public Rower(double experience, int qualification) { // CR: add Rank parameter to constructor. There is no so tight relation between experience and position in real life
         this.experience = experience;
         this.qualification = qualification;
         if(experience >= 3.0)setPosition(Rank.SENIOR);
