@@ -23,7 +23,7 @@ public class Project {
     }
 
     public void assignRowersToProject(Bench bench) throws NotEnoughRowersException {
-        long countsen = bench.getRowers().stream().filter(r->Rank.SENIOR.equals(r.getPosition())).count();
+        long countsen = bench.getRowers().stream().filter(r->Rank.SENIOR.equals(r.getPosition())).count(); // Better to create getRowers(Position p, quantity q) method in Bench class 
         long countMid = bench.getRowers().stream().filter(r->Rank.MIDDLE.equals(r.getPosition())).count();
         long countJun = bench.getRowers().stream().filter(r->Rank.JUNIOR.equals(r.getPosition())).count();
 
@@ -58,7 +58,7 @@ public class Project {
         bench.getRowers().removeAll(juniorsList);
     }
 
-    public void printRowersOnProject() {
+    public void printRowersOnProject() { // override toString() instead
         System.out.println("ON PROJECT: " + "'" + getName() + "'" + " are " + rowersOnProject.size() + " rowers: ");
         for(Rower rower : rowersOnProject){
             System.out.println(rower.getPosition()+" "+ "Experience: " + rower.getExperience() + "  "
