@@ -23,6 +23,18 @@ public class Manager implements Employee{
         idNumber = ++managersNumber;
     }
 
+    public void initRowers(){
+        String line = "";
+        try(BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\Home\\IdeaProjects\\GALLEY\\src\\app\\ListOfRowers"))) {
+            while ((line = in.readLine()) != null) {
+                String parts[] = line.split("\\s");
+                bench.addRower(Rank.valueOf(parts[0].toUpperCase()), Double.valueOf(parts[1]), Integer.valueOf(parts[2]));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void initProjects(){
         String line = "";
         try(BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\Home\\IdeaProjects\\GALLEY\\src\\app\\ListOfProjects"))) {
@@ -44,18 +56,6 @@ public class Manager implements Employee{
             }
             System.out.println("Project Manager: " + getName() + "(" + "ID: " + getID() + ")");
             project.printRowersOnProject();
-        }
-    }
-
-    public void initRowers(){
-        String line = "";
-        try(BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\Home\\IdeaProjects\\GALLEY\\src\\app\\ListOfRowers"))) {
-            while ((line = in.readLine()) != null) {
-                String parts[] = line.split("\\s");
-                bench.addRower(Rank.valueOf(parts[0].toUpperCase()), Double.valueOf(parts[1]), Integer.valueOf(parts[2]));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -90,5 +90,13 @@ public class Manager implements Employee{
 
     public void setIdNumber(int idNumber) {
         this.idNumber = idNumber;
+    }
+
+    public Bench getBench() {
+        return bench;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
     }
 }

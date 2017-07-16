@@ -15,6 +15,10 @@ public class Bench {
       rowers.add(new Rower(position, experience, qualification));
     }
 
+    public long countRowers(Rank rank){
+        return getRowers().stream().filter(r->rank.equals(r.getPosition())).count();
+    }
+
 
     public List<Rower> getRowers() {
         return rowers;
