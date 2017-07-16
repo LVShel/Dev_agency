@@ -8,9 +8,18 @@ import java.util.List;
 /**
  * Created by Home on 08.07.2017.
  */
-public class Manager {
+public class Manager implements Employee{
+    private String name;
+    private int idNumber;
+    private static int managersNumber = 0;
+
     Bench bench = new Bench();
     List<Project> projects = new ArrayList<>();
+
+    public Manager(String name) {
+        this.name = name;
+        idNumber = ++managersNumber;
+    }
 
     public void initProject(){
         projects.add(new Project("AVAL BANK", 1, 2, 1));
@@ -25,6 +34,7 @@ public class Manager {
             } catch (NotEnoughRowersException e) {
                 e.printStackTrace();
             }
+            System.out.println("Project Manager: " + getName() + "(" + "ID: " + getID() + ")");
             project.printRowersOnProject();
         }
     }
@@ -69,8 +79,29 @@ public class Manager {
     public void printAllBench() {
         System.out.println("ROWERS LEFT ON THE BENCH: ");
         for(Rower rower: bench.getRowers()){
-        System.out.println(rower.getPosition() + ": " + "Experience: " +   rower.getExperience() + "  " + "Qualification: " + rower.getQualification());
+        System.out.println(rower.getPosition() + ": " + "Experience: " +   rower.getExperience() + "  "
+                + "Qualification: " + rower.getQualification() + " ID: " + rower.getID());
         }
     }
 
+    @Override
+    public String getID() {
+        return "Mng".concat(String.valueOf(getIdNumber()));
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(int idNumber) {
+        this.idNumber = idNumber;
+    }
 }

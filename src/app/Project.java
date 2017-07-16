@@ -27,10 +27,6 @@ public class Project {
         long countMid = bench.getRowers().stream().filter(r->Rank.MIDDLE.equals(r.getPosition())).count();
         long countJun = bench.getRowers().stream().filter(r->Rank.JUNIOR.equals(r.getPosition())).count();
 
-        long seniorsLimit = 0;
-        long middlesLimit = 0;
-        long juniorsLimit = 0;
-
         if(countsen < getSeniorsNeed()){
             throw new NotEnoughRowersException("NOT ENOUGH SENIORS ON THE BENCH!!! " + "(" + countsen + " LEFT" + ")");
         }
@@ -40,15 +36,11 @@ public class Project {
         else if(countJun < getJuniorsNeed()){
             throw new NotEnoughRowersException("NOT ENOUGH JUNIORS ON THE BENCH!!! " + "(" + countJun + " LEFT" + ")");
         }
-        else{
-            seniorsLimit = getSeniorsNeed();
-            middlesLimit = getMiddlesNeed();
-            juniorsLimit = getJuniorsNeed();
-        }
 
-        List<Rower> seniorsList = bench.getRowers().stream().filter(r->Rank.SENIOR.equals(r.getPosition())).limit(seniorsLimit).collect(Collectors.toList());
-        List<Rower> middlesList = bench.getRowers().stream().filter(r->Rank.MIDDLE.equals(r.getPosition())).limit(middlesLimit).collect(Collectors.toList());
-        List<Rower> juniorsList = bench.getRowers().stream().filter(r->Rank.JUNIOR.equals(r.getPosition())).limit(juniorsLimit).collect(Collectors.toList());
+
+        List<Rower> seniorsList = bench.getRowers().stream().filter(r->Rank.SENIOR.equals(r.getPosition())).limit(getSeniorsNeed()).collect(Collectors.toList());
+        List<Rower> middlesList = bench.getRowers().stream().filter(r->Rank.MIDDLE.equals(r.getPosition())).limit(getMiddlesNeed()).collect(Collectors.toList());
+        List<Rower> juniorsList = bench.getRowers().stream().filter(r->Rank.JUNIOR.equals(r.getPosition())).limit(getJuniorsNeed()).collect(Collectors.toList());
 
         rowersOnProject.addAll(seniorsList);
         rowersOnProject.addAll(middlesList);
