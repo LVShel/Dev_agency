@@ -8,7 +8,9 @@ public class CTO {
     public static void main(String[] args) {
         Manager manager = new Manager("Leo");
         manager.initRowers();
+        manager.initProjects();
         manager.sortBench();
+        manager.startProjects();
         manager.printAllBench();
     }
 }

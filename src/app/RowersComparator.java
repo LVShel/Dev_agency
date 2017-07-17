@@ -8,7 +8,7 @@ import java.util.Comparator;
 public class RowersComparator implements Comparator<Rower> {
 
     public int compare(Rower a, Rower b){
-        int i = a.getPosition().name().compareTo(b.getPosition().name());
+        int i = a.getPosition().compareTo(b.getPosition());
         if (i != 0){
             return i;
         }

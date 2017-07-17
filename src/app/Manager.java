@@ -27,11 +27,14 @@ public class Manager implements Employee{
         String line = "";
         try(BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\Home\\IdeaProjects\\GALLEY\\src\\app\\ListOfRowers"))) {
             while ((line = in.readLine()) != null) {
-                String parts[] = line.split("\\s");
+                String parts[] = line.split("\\s");//exception
                 bench.addRower(Rank.valueOf(parts[0].toUpperCase()), Double.valueOf(parts[1]), Integer.valueOf(parts[2]));
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
+            System.out.println("Wrong listOfRowers format. Use space to split line!");
         }
     }
 
@@ -44,13 +47,18 @@ public class Manager implements Employee{
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
+            System.out.println("Wrong listOfProjects format. Use space to split line!");
         }
     }
 
     public void startProjects() {
         for(Project project : projects){
             try {
-                project.assignRowers(bench);
+                bench.assignRowers(project, Rank.SENIOR);
+                bench.assignRowers(project, Rank.MIDDLE);
+                bench.assignRowers(project, Rank.JUNIOR);
             } catch (NotEnoughRowersException e) {
                 e.printStackTrace();
             }

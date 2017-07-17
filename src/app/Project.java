@@ -5,7 +5,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by Home on 08.07.2017.
+ * This class represents parameters of a Project, contains list of Rowers that had been assigned
+ * to this project as well as methods that allow to perform operations over this list
+ * using the class instance. The List<>Rowers</> rowersOnProject remains empty until project manager
+ * will initiate rowers to the project using specified class Manager method. Then usually
+ * method assignRowers(...) would be called from the method startProjects() of the class Manager.
+ * It is also possible to obtain neat console representation of the rowers list using method
+ * printRowersOnProject().
  */
 public class Project {
     public String name;
@@ -22,39 +28,26 @@ public class Project {
         this.juniorsNeed = juniorsNeed;
     }
 
-    public void assignRowers(Bench bench) throws NotEnoughRowersException {
-        long countsen = bench.countRowers(Rank.SENIOR);
-        long countMid = bench.countRowers(Rank.MIDDLE);
-        long countJun = bench.countRowers(Rank.JUNIOR);
-
-        if(countsen < getSeniorsNeed()){
-            throw new NotEnoughRowersException("NOT ENOUGH SENIORS ON THE BENCH!!! " + "(" + countsen + " LEFT" + ")");
-        }
-        else if(countMid < getMiddlesNeed()){
-            throw new NotEnoughRowersException("NOT ENOUGH MIDDLES ON THE BENCH!!! " + "(" + countMid + " LEFT" + ")");
-        }
-        else if(countJun < getJuniorsNeed()){
-            throw new NotEnoughRowersException("NOT ENOUGH JUNIORS ON THE BENCH!!! " + "(" + countJun + " LEFT" + ")");
-        }
-
-        List<Rower> seniorsList = bench.getRowers().stream().filter(r->Rank.SENIOR.equals(r.getPosition())).limit(getSeniorsNeed()).collect(Collectors.toList());
-        List<Rower> middlesList = bench.getRowers().stream().filter(r->Rank.MIDDLE.equals(r.getPosition())).limit(getMiddlesNeed()).collect(Collectors.toList());
-        List<Rower> juniorsList = bench.getRowers().stream().filter(r->Rank.JUNIOR.equals(r.getPosition())).limit(getJuniorsNeed()).collect(Collectors.toList());
-
-        rowersOnProject.addAll(seniorsList);
-        rowersOnProject.addAll(middlesList);
-        rowersOnProject.addAll(juniorsList);
-        bench.getRowers().removeAll(seniorsList);
-        bench.getRowers().removeAll(middlesList);
-        bench.getRowers().removeAll(juniorsList);
-    }
-
     public void printRowersOnProject() {
         System.out.println("ON PROJECT: " + "'" + getName() + "'" + " are " + rowersOnProject.size() + " rowers: ");
         for(Rower rower : rowersOnProject){
             System.out.println(rower.getPosition()+" "+ "Experience: " + rower.getExperience() + "  "
                        + "Qualification: " + rower.getQualification());
         }
+    }
+
+    public long getLimit(Rank rank){
+        long limit = 0;
+        if(rank == Rank.SENIOR){
+            limit = getSeniorsNeed();
+        }
+        if(rank == Rank.MIDDLE){
+            limit = getMiddlesNeed();
+        }
+        if(rank == Rank.JUNIOR){
+            limit = getJuniorsNeed();
+        }
+        return limit;
     }
 
     public List<Rower> getRowersOnProject() {
