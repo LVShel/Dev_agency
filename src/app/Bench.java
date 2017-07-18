@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by Home on 08.07.2017.
+ * Created by Home on 08.07.2017. // add more cpecific documentation
  */
 public class Bench {
     List<Rower> rowers = new ArrayList<>();
