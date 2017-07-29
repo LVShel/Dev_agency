@@ -1,20 +1,22 @@
-package app;
+package app.rower;
+
+import app.Employee;
+import app.Rank;
 
 /**
  * Created by Home on 08.07.2017.
  */
-public class Rower implements Employee{
-    private Rank position;
+public class Rower implements Employee {
+    protected Rank position;
     private double experience;
     private int qualification;
-    private int idNumber;
-    private static int rowersNumber = 0;
+    protected int idNumber;
 
-    public Rower(Rank position, double experience, int qualification) {
-        this.position = position;
+    public Rower() {}
+
+    public Rower(double experience, int qualification) {
         this.experience = experience;
         this.qualification = qualification;
-        idNumber = ++rowersNumber;
     }
 
 

@@ -1,8 +1,9 @@
 package app;
 
+import app.rower.Rower;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * This class represents parameters of a Project, contains list of Rowers that had been assigned

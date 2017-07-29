@@ -1,5 +1,7 @@
 package app;
 
+import app.rower.Rower;
+
 import java.util.Comparator;
 
 /**

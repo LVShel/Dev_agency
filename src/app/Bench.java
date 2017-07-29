@@ -1,9 +1,12 @@
 package app;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import app.rower.Junior;
+import app.rower.Middle;
+import app.rower.Rower;
+import app.rower.Senior;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -13,7 +16,18 @@ public class Bench {
     List<Rower> rowers = new ArrayList<>();
 
     public void addRower(Rank position, double experience, int qualification) {
-      rowers.add(new Rower(position, experience, qualification));
+
+        Map<Rank, Class<? extends Rower>> rowerMap = new HashMap<>();
+
+        rowerMap.put(Rank.JUNIOR, Junior.class);
+        rowerMap.put(Rank.MIDDLE, Middle.class);
+        rowerMap.put(Rank.SENIOR, Senior.class);
+
+        try {
+            rowers.add(rowerMap.get(position).getConstructor(Double.TYPE, Integer.TYPE).newInstance(experience, qualification));
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
