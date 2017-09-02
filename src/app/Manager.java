@@ -5,8 +5,6 @@ import app.src.NotEnoughRowersException;
 import app.src.Rank;
 import app.src.RowersComparator;
 import app.src.TaskType;
-import app.task.Task;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -21,10 +19,9 @@ public class Manager implements Employee{
     private String name;
     private int idNumber;
     private static int managersNumber = 0;
-
-    Bench bench = new Bench();
-    List<Project> projects = new ArrayList<>();
-    TeamLead teamLead = new TeamLead("Batman", projects);
+    private Bench bench = new Bench();
+    private List<Project> projects = new ArrayList<>();
+    private TeamLead teamLead = new TeamLead("Batman", projects);
 
     public Manager(String name) {
         this.name = name;
@@ -32,31 +29,43 @@ public class Manager implements Employee{
     }
 
     public void initRowers(){
-        String line = "";
+        String line;
         try(BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\Home\\IdeaProjects\\GALLEY\\src\\app\\src\\ListOfRowers"))) {
             while ((line = in.readLine()) != null) {
-                String parts[] = line.split("\\s");//exception
-                bench.addRower(Rank.valueOf(parts[0].toUpperCase()), Double.valueOf(parts[1]), Integer.valueOf(parts[2]));
+                String row[] = line.split("\\s");
+                Rank position = Rank.valueOf(row[0].toUpperCase());
+                double experience = Double.valueOf(row[1]);
+                int qualification = Integer.valueOf(row[2]);
+                bench.addRower(position, experience, qualification);
             }
         } catch (IOException e) {
+            bench.getRowers().clear();
             e.printStackTrace();
         }catch (ArrayIndexOutOfBoundsException e) {
+            bench.getRowers().clear();
             e.printStackTrace();
             System.out.println("Wrong listOfRowers format. Use space to split line!");
         }
     }
 
     public void initProjects(){
-        String line = "";
+        String line;
         try(BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\Home\\IdeaProjects\\GALLEY\\src\\app\\src\\ListOfProjects"))) {
             while ((line = in.readLine()) != null) {
-                String parts[] = line.split("\\s");
-                projects.add(new Project(parts[1], Integer.valueOf(parts[3]), Integer.valueOf(parts[5]), Integer.valueOf(parts[7]), Integer.valueOf(parts[9])));
+                String row[] = line.split("\\s");
+                String name = row[1];
+                int seniorsNeed = Integer.valueOf(row[3]);
+                int middlesNeed = Integer.valueOf(row[5]);
+                int juniorsNeed = Integer.valueOf(row[7]);
+                int maxTasksForOneRower = Integer.valueOf(row[9]);
+                projects.add(new Project(name, seniorsNeed, middlesNeed, juniorsNeed, maxTasksForOneRower));
             }
         } catch (IOException e) {
             e.printStackTrace();
+            projects.clear();
         }catch (ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
+            projects.clear();
             System.out.println("Wrong listOfProjects format. Use space to split line!");
         }
     }
@@ -75,18 +84,25 @@ public class Manager implements Employee{
     }
 
     public void initTasks(){
-        String line = "";
+        String line;
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         try(BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\Home\\IdeaProjects\\GALLEY\\src\\app\\src\\ListOfTasks"))) {
             while ((line = in.readLine()) != null) {
-                String parts[] = line.split("\\s");
-                teamLead.addTask(parts[0], TaskType.valueOf(parts[1].toUpperCase()), LocalDate.parse(parts[2], format), LocalDate.parse(parts[3], format), Integer.valueOf(parts[4]));
+                String row[] = line.split("\\s");
+                String projectName = row[0];
+                TaskType taskType = TaskType.valueOf(row[1].toUpperCase());
+                LocalDate startDate = LocalDate.parse(row[2], format);
+                LocalDate endDate = LocalDate.parse(row[3], format);
+                int storyPoints = Integer.valueOf(row[4]);
+                teamLead.addTask(projectName, taskType, startDate, endDate, storyPoints);
             }
             teamLead.executeTasks();
         } catch (IOException e) {
             e.printStackTrace();
+            teamLead.getTasks().clear();
         }catch (ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
+            teamLead.getTasks().clear();
             System.out.println("Wrong listOfTasks format. Use space to split line!");
         }
     }
@@ -99,11 +115,11 @@ public class Manager implements Employee{
         printAllBench();
     }
 
-    public void sortBench(){
+    private void sortBench(){
         Collections.sort(bench.getRowers(), new RowersComparator().reversed());
     }
 
-    public void printAllBench() {
+    private void printAllBench() {
         System.out.println("ROWERS LEFT ON THE BENCH: " + bench.getRowers().size());
         for(Rower rower: bench.getRowers()){
         System.out.println(rower.getPosition() + ": " + "Experience: " +   rower.getExperience() + "  "

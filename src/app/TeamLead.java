@@ -17,8 +17,8 @@ public class TeamLead implements Employee {
     private String name;
     private int idNumber;
     private static int leadsNumber = 500;
-    List<Task> tasks = new ArrayList<>();
-    List<Project> projects;
+    private List<Task> tasks = new ArrayList<>();
+    private List<Project> projects;
 
     public TeamLead(String name, List<Project> projects){
         this.projects = projects;
@@ -70,5 +70,9 @@ public class TeamLead implements Employee {
 
     public int getIdNumber() {
         return idNumber;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
     }
 }

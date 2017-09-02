@@ -1,12 +1,9 @@
 package app;
 
 import app.rower.Rower;
-import app.src.NotEnoughRowersException;
 import app.src.Rank;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 /**
  * This class represents parameters of a Project, contains list of Rowers that had been assigned
