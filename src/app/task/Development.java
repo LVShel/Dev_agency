@@ -19,13 +19,17 @@ public class Development extends Task {
 
     @Override
     public void execute(Project project) {
-        if(project.countRowers(Rank.MIDDLE)>=1){
-            project.findRower(Rank.MIDDLE).doDeveloping();
+        Rower middle = project.findRower(Rank.MIDDLE);
+        Rower senior = project.findRower(Rank.SENIOR);
+        if(middle != null){
+            middle.doDeveloping();
         }
-        else if(project.countRowers(Rank.MIDDLE) < 1 & project.countRowers(Rank.SENIOR) >= 1){
-            project.findRower(Rank.SENIOR).doDeveloping();
+        if(middle == null & senior != null){
+            senior.doDeveloping();
         }
-        else System.out.println("NOT ENOUGH ROWERS FOR DEVELOPMENT!");
+        if(middle == null & senior == null){
+            System.out.println("NOT ENOUGH ROWERS FOR DEVELOPING!");
+        }
     }
 
 

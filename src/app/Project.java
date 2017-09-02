@@ -59,7 +59,7 @@ public class Project {
     }
 
     public Rower findRower(Rank rank) {
-        return rowersOnProject.stream().filter(c -> c.getPosition().equals(rank) && c.getNumberOfTasks() < getMaxTasksForOneRower()).findFirst().get();
+        return rowersOnProject.stream().filter(c -> c.getPosition().equals(rank) & c.getNumberOfTasks() < getMaxTasksForOneRower()).findFirst().orElse(null);
     }
 
     public long countRowers(Rank rank){

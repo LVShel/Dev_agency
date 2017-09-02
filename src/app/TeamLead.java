@@ -21,7 +21,6 @@ public class TeamLead implements Employee {
     List<Project> projects;
 
     public TeamLead(String name, List<Project> projects){
-        this.tasks = tasks;
         this.projects = projects;
         this.name = name;
         idNumber = ++leadsNumber;
@@ -45,7 +44,8 @@ public class TeamLead implements Employee {
 
     public void executeTasks(){
         for(Task task : tasks){
-            task.execute(projects.get(getProjectByName(task.getProjectName())));
+            int projectIndex = getProjectByName(task.getProjectName());
+            task.execute(projects.get(projectIndex));
         }
     }
 

@@ -18,10 +18,13 @@ public class Refactoring extends Task {
 
     @Override
     public void execute(Project project){
-            if(project.countRowers(Rank.SENIOR)>=1){
-                project.findRower(Rank.SENIOR).doRefactoring();
-            }
-            else System.out.println("NOT ENOUGH SENIORS FOR DEVELOPMENT!");
+        Rower senior = project.findRower(Rank.SENIOR);
+        if(senior != null){
+            senior.doRefactoring();
+        }
+        else{
+            System.out.println("NOT ENOUGH SENIORS FOR REFACTORING!");
+        }
     }
 
 

@@ -1,6 +1,8 @@
 package app.task;
 
 import app.Project;
+import app.rower.Junior;
+import app.rower.Rower;
 import app.src.Rank;
 
 import java.time.LocalDate;
@@ -15,18 +17,21 @@ public class BugFixing extends Task {
 
     @Override
     public void execute(Project project) {
-       if(project.countRowers(Rank.JUNIOR)>=1){
-           if(project.findRower(Rank.JUNIOR).getNumberOfTasks() < project.getMaxTasksForOneRower()){
-               project.findRower(Rank.JUNIOR).doBugfixing();
-           }
+        Rower junior = project.findRower(Rank.JUNIOR);
+        Rower middle = project.findRower(Rank.MIDDLE);
+        Rower senior = project.findRower(Rank.SENIOR);
+       if(junior != null){
+           junior.doBugfixing();
        }
-       else if(project.countRowers(Rank.JUNIOR) < 1 & project.countRowers(Rank.MIDDLE) >= 1){
-           project.findRower(Rank.MIDDLE).doBugfixing();
+       if(junior == null & middle != null){
+           middle.doBugfixing();
        }
-       else if(project.countRowers(Rank.JUNIOR) < 1 & project.countRowers(Rank.MIDDLE) < 1 & project.countRowers(Rank.SENIOR) >=1){
-           project.findRower(Rank.SENIOR).doBugfixing();
+       if(junior == null & middle == null & senior != null){
+           senior.doBugfixing();
        }
-       else System.out.println("NOT ENOUGH ROWERS FOR BUG FIXING!");
+       if(junior == null & middle == null & senior == null){
+           System.out.println("NOT ENOUGH ROWERS FOR BUG FIXING!");
+       }
     }
 
 
