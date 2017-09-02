@@ -30,7 +30,7 @@ public class Manager implements Employee{
 
     public void initRowers(){
         String line;
-        try(BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\Home\\IdeaProjects\\GALLEY\\src\\app\\src\\ListOfRowers"))) {
+        try(BufferedReader in = new BufferedReader(new FileReader("src/ListOfRowers"))) {
             while ((line = in.readLine()) != null) {
                 String row[] = line.split("\\s");
                 Rank position = Rank.valueOf(row[0].toUpperCase());
@@ -50,7 +50,7 @@ public class Manager implements Employee{
 
     public void initProjects(){
         String line;
-        try(BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\Home\\IdeaProjects\\GALLEY\\src\\app\\src\\ListOfProjects"))) {
+        try(BufferedReader in = new BufferedReader(new FileReader("src/ListOfProjects"))) {
             while ((line = in.readLine()) != null) {
                 String row[] = line.split("\\s");
                 String name = row[1];
@@ -86,7 +86,7 @@ public class Manager implements Employee{
     public void initTasks(){
         String line;
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        try(BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\Home\\IdeaProjects\\GALLEY\\src\\app\\src\\ListOfTasks"))) {
+        try(BufferedReader in = new BufferedReader(new FileReader("src/ListOfTasks"))) {
             while ((line = in.readLine()) != null) {
                 String row[] = line.split("\\s");
                 String projectName = row[0];
