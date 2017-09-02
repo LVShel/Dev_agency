@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * Created by Home on 08.07.2017.
  */
 public class Bench {
-    List<Rower> rowers = new ArrayList<>();
+    private List<Rower> rowers = new ArrayList<>();
 
     public void addRower(Rank position, double experience, int qualification) {
 

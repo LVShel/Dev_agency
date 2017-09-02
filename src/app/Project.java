@@ -20,9 +20,7 @@ public class Project {
     private int middlesNeed;
     private int juniorsNeed;
     private int maxTasksForOneRower;
-
-
-    List<Rower> rowersOnProject = new ArrayList<>();
+    private List<Rower> rowersOnProject = new ArrayList<>();
 
     public Project(String name, int seniorsNeed, int middlesNeed, int juniorsNeed, int maxTasksForOneRower) {
         this.name = name;

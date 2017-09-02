@@ -5,7 +5,6 @@ import app.task.BugFixing;
 import app.task.Development;
 import app.task.Refactoring;
 import app.task.Task;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
