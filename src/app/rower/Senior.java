@@ -1,6 +1,6 @@
 package app.rower;
 
-import app.Rank;
+import app.src.Rank;
 
 /**
  * Created by Home on 19.07.2017.
@@ -14,13 +14,24 @@ public class Senior extends Rower {
         super(experience, qualification);
         this.position = Rank.SENIOR;
         this.idNumber = ++seniorsNumber;
+        this.numberOfTasks = 0;
+        this.numberOfBugfixingTasks = 0;
+        this.numberOfDevelopmentTasks = 0;
+        this.numberOfRefactoringTasks = 0;
     }
 
-    public void doRefactoring() {
-        // do refactoring
+    public void doBugfixing(){
+        numberOfTasks++;
+        numberOfBugfixingTasks++;
     }
 
-    public void doCodeReview() {
-        // do refactoring
+    public void doDeveloping(){
+        numberOfTasks++;
+        numberOfDevelopmentTasks++;
+    }
+
+    public void doRefactoring(){
+        numberOfTasks++;
+        numberOfRefactoringTasks++;
     }
 }

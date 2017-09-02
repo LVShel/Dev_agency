@@ -1,4 +1,4 @@
-package app;
+package app.src;
 
 import app.rower.Rower;
 

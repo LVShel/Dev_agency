@@ -4,6 +4,8 @@ import app.rower.Junior;
 import app.rower.Middle;
 import app.rower.Rower;
 import app.rower.Senior;
+import app.src.NotEnoughRowersException;
+import app.src.Rank;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -41,16 +43,16 @@ public class Bench {
      * the NotEnoughRowers exception will be thrown to the runtime.
      * */
 
-    public void assignRowers(Project project, Rank rank) throws NotEnoughRowersException{
+    public void assignRowers(Project project, Rank rank) throws NotEnoughRowersException {
         List<Rower> rowersList = getRowers().stream().filter(r->rank.equals(r.getPosition())).limit(project.getLimit(rank)).collect(Collectors.toList());
-        if(countRowers(rank) < project.getLimit(rank)){
-            throw new NotEnoughRowersException("NOT ENOUGH SENIORS ON THE BENCH!!! " + "(" + countRowers(rank) + " LEFT" + ")");
+        if(countRowersOnBench(rank) < project.getLimit(rank)){
+            throw new NotEnoughRowersException("NOT ENOUGH SENIORS ON THE BENCH!!! " + "(" + countRowersOnBench(rank) + " LEFT" + ")");
         }
         project.getRowersOnProject().addAll(rowersList);
         getRowers().removeAll(rowersList);
     }
 
-    public long countRowers(Rank rank){
+    public long countRowersOnBench(Rank rank){
         return getRowers().stream().filter(r->rank.equals(r.getPosition())).count();
     }
 

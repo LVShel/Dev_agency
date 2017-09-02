@@ -1,4 +1,4 @@
-package app;
+package app.src;
 
 /**
  * Created by Home on 15.07.2017.

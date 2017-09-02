@@ -1,4 +1,4 @@
-package app;
+package app.src;
 
 import app.rower.Junior;
 import app.rower.Middle;
@@ -21,6 +21,7 @@ public class RowerFactory {
                 return new Senior();
             default:
                 return new Rower();
+
         }
     }
 }

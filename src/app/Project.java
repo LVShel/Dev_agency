@@ -1,9 +1,12 @@
 package app;
 
 import app.rower.Rower;
+import app.src.NotEnoughRowersException;
+import app.src.Rank;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * This class represents parameters of a Project, contains list of Rowers that had been assigned
@@ -15,40 +18,52 @@ import java.util.List;
  * printRowersOnProject().
  */
 public class Project {
-    public String name;
-    public int seniorsNeed;
-    public int middlesNeed;
-    public int juniorsNeed;
+    private String name;
+    private int seniorsNeed;
+    private int middlesNeed;
+    private int juniorsNeed;
+    private int maxTasksForOneRower;
+
 
     List<Rower> rowersOnProject = new ArrayList<>();
 
-    public Project(String name, int seniorsNeed, int middlesNeed, int juniorsNeed) {
+    public Project(String name, int seniorsNeed, int middlesNeed, int juniorsNeed, int maxTasksForOneRower) {
         this.name = name;
         this.seniorsNeed = seniorsNeed;
         this.middlesNeed = middlesNeed;
         this.juniorsNeed = juniorsNeed;
+        this.maxTasksForOneRower = maxTasksForOneRower;
     }
 
     public void printRowersOnProject() {
         System.out.println("ON PROJECT: " + "'" + getName() + "'" + " are " + rowersOnProject.size() + " rowers: ");
         for(Rower rower : rowersOnProject){
             System.out.println(rower.getPosition()+" "+ "Experience: " + rower.getExperience() + "  "
-                       + "Qualification: " + rower.getQualification());
+                       + "Qualification: " + rower.getQualification()+ " ID: " + rower.getID() + " Tasks executing: " + rower.getNumberOfTasks()
+                    + "(" + " BUGFIXING: " + rower.getNumberOfBugfixingTasks() + " DEVELOPMENT: " + rower.getNumberOfDevelopmentTasks()
+            + " REFACTORING: " + rower.getNumberOfRefactoringTasks() + ")");
         }
     }
 
     public long getLimit(Rank rank){
-        long limit = 0;
-        if(rank == Rank.SENIOR){
-            limit = getSeniorsNeed();
+        switch(rank){
+            case JUNIOR:
+                return getJuniorsNeed();
+            case MIDDLE:
+                return getMiddlesNeed();
+            case SENIOR:
+                return getSeniorsNeed();
+                default:
+                    return 0;
         }
-        if(rank == Rank.MIDDLE){
-            limit = getMiddlesNeed();
-        }
-        if(rank == Rank.JUNIOR){
-            limit = getJuniorsNeed();
-        }
-        return limit;
+    }
+
+    public Rower findRower(Rank rank) {
+        return rowersOnProject.stream().filter(c -> c.getPosition().equals(rank) && c.getNumberOfTasks() < getMaxTasksForOneRower()).findFirst().get();
+    }
+
+    public long countRowers(Rank rank){
+        return getRowersOnProject().stream().filter(r->rank.equals(r.getPosition())).count();
     }
 
     public List<Rower> getRowersOnProject() {
@@ -87,4 +102,7 @@ public class Project {
         this.juniorsNeed = juniorsNeed;
     }
 
+    public int getMaxTasksForOneRower() {
+        return maxTasksForOneRower;
+    }
 }
